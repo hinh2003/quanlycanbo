@@ -1,0 +1,12 @@
+D:\BTLc#\BaiTapLon\BaiTapLon\bin\Debug\BaiTapLon.exe.config
+D:\BTLc#\BaiTapLon\BaiTapLon\bin\Debug\BaiTapLon.exe
+D:\BTLc#\BaiTapLon\BaiTapLon\bin\Debug\BaiTapLon.pdb
+D:\BTLc#\BaiTapLon\BaiTapLon\obj\Debug\BaiTapLon.csproj.AssemblyReference.cache
+D:\BTLc#\BaiTapLon\BaiTapLon\obj\Debug\BaiTapLon.login.resources
+D:\BTLc#\BaiTapLon\BaiTapLon\obj\Debug\BaiTapLon.Properties.Resources.resources
+D:\BTLc#\BaiTapLon\BaiTapLon\obj\Debug\BaiTapLon.csproj.GenerateResource.cache
+D:\BTLc#\BaiTapLon\BaiTapLon\obj\Debug\BaiTapLon.csproj.CoreCompileInputs.cache
+D:\BTLc#\BaiTapLon\BaiTapLon\obj\Debug\BaiTapLon.exe
+D:\BTLc#\BaiTapLon\BaiTapLon\obj\Debug\BaiTapLon.pdb
+D:\BTLc#\BaiTapLon\BaiTapLon\obj\Debug\BaiTapLon.FormMain.resources
+D:\BTLc#\BaiTapLon\BaiTapLon\obj\Debug\BaiTapLon.FormAdd.resources
