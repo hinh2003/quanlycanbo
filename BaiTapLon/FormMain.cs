@@ -15,6 +15,9 @@ namespace BaiTapLon
     {
         string conn = "Server=DESKTOP-M9OV124\\HINH;Database=QuanLyCanBo;Integrated Security=SSPI;";
         SqlConnection sqlConnection;
+        public delegate void UpdateDataDelegate();
+        public UpdateDataDelegate UpdateDataCallback;
+
 
         public FormMain()
         {
@@ -43,8 +46,9 @@ namespace BaiTapLon
                     sqlConnection.Open();
                 }
 
-                string sql = "SELECT gv.ma_giaovien AS MaGiaoVien , gv.giaovien_ten AS TenGiaoVien, cv.congviec AS CongViec, " +
+                string sql = "SELECT  gv.giaovien_ten AS TenGiaoVien, cv.congviec AS CongViec, " +
                              "gv.giaovien_id AS giaovien_id," +
+                             "gv.tuoi AS Tuoi,"+
                              " gv.giaovien_sdt AS SDT ,gv.Giaovien_email AS Email," +
                              "cb.capbac AS CapBac, " +
                              "lgv.luonggiaovien AS Luong, " +
@@ -77,7 +81,7 @@ namespace BaiTapLon
             }
         }
 
-        void show()
+        public void show()
         {
             sqlConnection.Open();
             string sqlCapBac = "SELECT capbac FROM capbac";
@@ -126,12 +130,15 @@ namespace BaiTapLon
             readerDonVi.Close();
             sqlConnection.Close();
         }
-    
 
+    
         private void FormMain_Load(object sender, EventArgs e)
         {
             hienthi();
             show();
+
+
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -158,6 +165,7 @@ namespace BaiTapLon
                 DisplayCellContent(selectedRow, "CapBac", comboBox1);
                 DisplayCellContent(selectedRow, "Luong", comboBox3);
                 DisplayCellContent(selectedRow, "DonVi", comboBox2);
+                DisplayCellContent(selectedRow, "Tuoi", textBox2);
 
                 if (dataGridView1.Columns.Contains("giaovien_id"))
                 {
@@ -167,7 +175,7 @@ namespace BaiTapLon
             }
         }
 
-        private void DisplayCellContent(DataGridViewRow row, string columnName, Control control)
+        public void DisplayCellContent(DataGridViewRow row, string columnName, Control control)
         {
             if (row.Cells[columnName].Value != DBNull.Value)
             {
@@ -195,12 +203,13 @@ namespace BaiTapLon
                 string luonggv = comboBox3.Text;
                 string  DonVi = comboBox2.Text;
                 string congviec =  comboBox4.Text;
+                int tuoi;
                 int phoneNumber;
                 int luong;
 
-                if (!int.TryParse(textBox3.Text, out phoneNumber) || !int.TryParse(comboBox3.Text, out luong))
+                if (!int.TryParse(textBox3.Text, out phoneNumber) || !int.TryParse(textBox2.Text, out tuoi))
                 {
-                    MessageBox.Show("Vui lòng nhập số điện thoại và lương hợp lệ.");
+                    MessageBox.Show("Vui lòng nhập số  hợp lệ.");
                     return;
                 }
                  phoneNumber = int.Parse(phone);
@@ -208,7 +217,8 @@ namespace BaiTapLon
 
                 string sql1 = "UPDATE giaovien " +
                               "SET " +
-                              "giaovien_ten = @name, " +
+                              "giaovien_ten = @name, " + 
+                              "tuoi = @tuoi ," +
                               "Giaovien_email = @email, " +
                               "giaovien_sdt = @phoneNumber, " +
                               "donvi_id = (SELECT donvi_id FROM donvi WHERE donvi_ten = @DonVi), " +
@@ -218,6 +228,7 @@ namespace BaiTapLon
                               "WHERE giaovien_id = @giaovienId";
                 SqlCommand command = new SqlCommand(sql1, sqlConnection);
                 command.Parameters.AddWithValue("@name", name);
+                command.Parameters.AddWithValue("@tuoi", tuoi);
                 command.Parameters.AddWithValue("@email", email);
                 command.Parameters.AddWithValue("@phoneNumber", phoneNumber);
                 command.Parameters.AddWithValue("@DonVi", DonVi);
@@ -347,6 +358,106 @@ namespace BaiTapLon
             }
         }
 
+        private void danhSáchĐơnVịToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            capbac capbac = new capbac(this);
+            this.Hide();
+            capbac.ShowDialog();
+            this.Show();
+            
+        }
+        public void UpdateDonViComboBox()
+        {
+            comboBox2.Items.Clear(); // Xóa dữ liệu cũ trong combobox donvi
+            comboBox1.Items.Clear(); // Xóa dữ liệu cũ trong combobox donvi
+            comboBox3.Items.Clear(); // Xóa dữ liệu cũ trong combobox donvi
+            comboBox4.Items.Clear(); // Xóa dữ liệu cũ trong combobox donvi
+            show(); // Lấy dữ liệu mới từ cơ sở dữ liệu
+        }
+        public void UpdateDatagrid()
+        {
+            dataGridView1.DataSource = new DataTable();
+            hienthi();
+        }
 
+        private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+         
+        }
+
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+        }
+
+        private void danhSáchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            donvi donvi = new donvi(this);
+            this.Hide();
+            donvi.ShowDialog();
+            this.Show();
+        }
+
+        private void bảngLươngToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bangluong bangluong = new bangluong();
+            this.Hide();
+            bangluong.ShowDialog();
+            this.Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (sqlConnection.State == ConnectionState.Closed)
+                {
+                    sqlConnection.Open();
+                }
+
+                string sql = "SELECT  gv.giaovien_ten AS TenGiaoVien, cv.congviec AS CongViec, " +
+                            "gv.giaovien_id AS giaovien_id," +
+                            "gv.tuoi AS Tuoi," +
+                            " gv.giaovien_sdt AS SDT ,gv.Giaovien_email AS Email," +
+                            "cb.capbac AS CapBac, " +
+                            "lgv.luonggiaovien AS Luong, " +
+                            "dv.donvi_ten AS DonVi " +
+                            "FROM giaovien gv " +
+                            "JOIN congviec cv ON gv.congviec_id = cv.congviec_id " +
+                            "JOIN capbac cb ON gv.capbac_id = cb.capbac_id " +
+                            "JOIN luonggiaovien lgv ON gv.luonggiaovien_id = lgv.luonggiaovien_id " +
+                            "JOIN donvi dv ON gv.donvi_id = dv.donvi_id " +
+                            "WHERE tuoi > 60";
+
+                SqlCommand command = new SqlCommand(sql, sqlConnection);
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
+
+                if (dataTable.Rows.Count > 0)
+                {
+                    // Hiển thị dữ liệu trong DataGridView nếu có người tuổi trên 60
+                    dataGridView1.DataSource = dataTable;
+                }
+                else
+                {
+                    MessageBox.Show("Không có người tuổi trên 60.");
+                }
+
+                if (sqlConnection.State == ConnectionState.Open)
+                {
+                    sqlConnection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message);
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

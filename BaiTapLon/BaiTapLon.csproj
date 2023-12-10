@@ -46,11 +46,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="capbac.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="capbac.Designer.cs">
+      <DependentUpon>capbac.cs</DependentUpon>
+    </Compile>
+    <Compile Include="donvi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="donvi.Designer.cs">
+      <DependentUpon>donvi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="bangluong.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="bangluong.Designer.cs">
+      <DependentUpon>bangluong.cs</DependentUpon>
     </Compile>
     <Compile Include="FormAdd.cs">
       <SubType>Form</SubType>
@@ -72,6 +84,15 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="bangluong.resx">
+      <DependentUpon>bangluong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="capbac.resx">
+      <DependentUpon>capbac.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="donvi.resx">
+      <DependentUpon>donvi.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormAdd.resx">
       <DependentUpon>FormAdd.cs</DependentUpon>
     </EmbeddedResource>

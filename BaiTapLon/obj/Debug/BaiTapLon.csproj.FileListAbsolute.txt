@@ -10,3 +10,6 @@ D:\BTLc#\BaiTapLon\BaiTapLon\obj\Debug\BaiTapLon.exe
 D:\BTLc#\BaiTapLon\BaiTapLon\obj\Debug\BaiTapLon.pdb
 D:\BTLc#\BaiTapLon\BaiTapLon\obj\Debug\BaiTapLon.FormMain.resources
 D:\BTLc#\BaiTapLon\BaiTapLon\obj\Debug\BaiTapLon.FormAdd.resources
+D:\BTLc#\BaiTapLon\BaiTapLon\obj\Debug\BaiTapLon.capbac.resources
+D:\BTLc#\BaiTapLon\BaiTapLon\obj\Debug\BaiTapLon.donvi.resources
+D:\BTLc#\BaiTapLon\BaiTapLon\obj\Debug\BaiTapLon.bangluong.resources
